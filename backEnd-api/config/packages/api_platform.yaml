@@ -1,0 +1,15 @@
+api_platform:
+    title: 'Symfony REST API'
+    description: 'A Symfony API + React'
+    version: '1.0.0'
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    collection:
+        pagination:
+            enabled: false
+            items_per_page: 15
+            client_enabled: true
