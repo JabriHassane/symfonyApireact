@@ -31,6 +31,7 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"customers_read"})
      */
     private $id;
 
@@ -86,7 +87,7 @@ class Customer
         return array_reduce(
             $this->invoices->toArray(),
             function ($total, $invoice){
-                return $total+$invoice->getAmount();
+                return  $total+$invoice->getAmount();
             },
             0
         );
