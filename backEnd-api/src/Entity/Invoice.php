@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  * @ApiResource(
  *     attributes={
- *          "pagination_enabled"=true,
+ *          "pagination_enabled"=false,
  *          "pagination_items_per_page"=20,
  *          "order":{"sentAt":"desc"}
  *     },
@@ -48,7 +48,7 @@ class Invoice
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read"})
+     * @Groups({"invoices_read","customers_read"})
      */
     private $id;
 
@@ -61,6 +61,7 @@ class Invoice
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"invoices_subresource"})
+     * @Groups({"invoices_read", "customers_read"})
      */
     private $sentAt;
 
@@ -79,7 +80,7 @@ class Invoice
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read"})
+     * @Groups({"invoices_read","customers_read"})
      */
     private $chrono;
 

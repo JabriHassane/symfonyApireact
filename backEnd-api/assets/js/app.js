@@ -16,6 +16,7 @@ import {HashRouter, Switch, Router, Route} from "react-router-dom";
 import '../styles/app.css';
 import HomePage from "./pages/HomePage";
 import CustomersPage from "./pages/CustomersPage";
+import InvoicesPage from "./pages/InvoicesPage";
 
 // start the Stimulus application
 // import '../bootstrap';
@@ -30,6 +31,7 @@ const App = () => {
                     <Navbar />
                     <main className="container pt-4">
                         <Switch>
+                            <Route exact path="/invoices" component={InvoicesPage}/>
                             <Route exact path="/customers" component={CustomersPage}/>
                             <Route exact path="/" component={HomePage}/>
                         </Switch>

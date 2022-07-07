@@ -24,12 +24,12 @@ const Navbar = props => {
                       <a href="#" className="nav-link">
                           Register ^_^"
                       </a>
-                  </li>
+                  </li>&nbsp;&nbsp;
                   <li className="nav_item">
                       <a href="#" className="btn btn-success">
                           LogIn ;)
                       </a>
-                  </li>
+                  </li>&nbsp;&nbsp;
                   <li className="nav_item">
                       <a href="#" className="btn btn-danger">
                           LogOut ;)

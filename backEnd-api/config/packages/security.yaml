@@ -47,7 +47,7 @@ security:
     access_control:
         - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE] }
-        - { path: ^/api/invoices, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/invoices, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/customers, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 
