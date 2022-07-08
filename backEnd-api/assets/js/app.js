@@ -7,7 +7,6 @@
  */
 //important import
 import React from "react";
-import ReactDom from "react-dom";
 import {createRoot} from "react-dom/client";
 import Navbar from "./components/Navbar";
 import {HashRouter, Switch, Router, Route} from "react-router-dom";
@@ -17,13 +16,16 @@ import '../styles/app.css';
 import HomePage from "./pages/HomePage";
 import CustomersPage from "./pages/CustomersPage";
 import InvoicesPage from "./pages/InvoicesPage";
+import LoginPage from "./pages/LoginPage";
+import AuthApi from "./services/authApi";
 
 // start the Stimulus application
 // import '../bootstrap';
 
 
-
 console.log("Tester si la console repend : TRTRTR");
+
+AuthApi.setUp();
 
 const App = () => {
     return <>
@@ -31,6 +33,7 @@ const App = () => {
                     <Navbar />
                     <main className="container pt-4">
                         <Switch>
+                            <Route exact path="/login" component={LoginPage}/>
                             <Route exact path="/invoices" component={InvoicesPage}/>
                             <Route exact path="/customers" component={CustomersPage}/>
                             <Route exact path="/" component={HomePage}/>
