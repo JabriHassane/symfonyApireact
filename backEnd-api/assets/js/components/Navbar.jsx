@@ -2,9 +2,10 @@ import React from "react";
 import authApi from "../services/authApi";
 import {NavLink} from "react-router-dom";
 
-const Navbar = props => {
+const Navbar = ({isAuthenticated, onLogout}) => {
     const handleLogout = ()=> {
         authApi.logout();
+        onLogout(false);
     }
 
     return (
@@ -26,21 +27,29 @@ const Navbar = props => {
                   </li>
               </ul>
               <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                      <NavLink to="/register" className="nav-link">
-                          Register ^_^"
-                      </NavLink>
-                  </li>&nbsp;&nbsp;
-                  <li className="nav_item">
-                      <NavLink to="/login" className="btn btn-success">
-                          LogIn ;)
-                      </NavLink>
-                  </li>&nbsp;&nbsp;
-                  <li className="nav_item">
-                      <button onClick={handleLogout} className="btn btn-danger">
-                          LogOut ;)
-                      </button>
-                  </li>
+                  {(!isAuthenticated &&
+                      (<>
+                          <li className="nav-item">
+                              <NavLink to="/register" className="nav-link">
+                                  Register ^_^"
+                              </NavLink>
+                          </li> &nbsp;&nbsp;
+                          <li className="nav_item">
+                              <NavLink to="/login" className="btn btn-success">
+                              LogIn ;)
+                              </NavLink>
+                          </li>
+                      </>)) ||
+
+                  (<>
+                      &nbsp;&nbsp;
+                      <li className="nav_item">
+                          <button onClick={handleLogout} className="btn btn-danger">
+                              LogOut ;)
+                          </button>
+                      </li>
+                  </>)
+                  }
               </ul>
           </div>
       </div>

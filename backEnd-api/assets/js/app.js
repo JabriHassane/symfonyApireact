@@ -6,7 +6,7 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 //important import
-import React from "react";
+import React, {useState} from "react";
 import {createRoot} from "react-dom/client";
 import Navbar from "./components/Navbar";
 import {HashRouter, Switch, Router, Route} from "react-router-dom";
@@ -18,22 +18,31 @@ import CustomersPage from "./pages/CustomersPage";
 import InvoicesPage from "./pages/InvoicesPage";
 import LoginPage from "./pages/LoginPage";
 import AuthApi from "./services/authApi";
+import authApi from "./services/authApi";
 
 // start the Stimulus application
 // import '../bootstrap';
 
 
-console.log("Tester si la console repend : TRTRTR");
+console.log("Tester si la console repend tjr");
 
 AuthApi.setUp();
 
 const App = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated);
+    console.log(isAuthenticated);
     return <>
             <HashRouter>
-                    <Navbar />
+                    <Navbar isAuthenticated={isAuthenticated} onLogout={setIsAuthenticated} />
                     <main className="container pt-4">
                         <Switch>
-                            <Route exact path="/login" component={LoginPage}/>
+                            <Route exact
+                                   path="/login"
+                                   render={
+                                    (props)=> <LoginPage
+                                                    onLogin={setIsAuthenticated}
+                                        />}
+                            />
                             <Route exact path="/invoices" component={InvoicesPage}/>
                             <Route exact path="/customers" component={CustomersPage}/>
                             <Route exact path="/" component={HomePage}/>

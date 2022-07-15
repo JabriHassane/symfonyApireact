@@ -14,7 +14,7 @@ async function authenticate(credentials) {
             //stoket token in a local tem storage
             window.localStorage.setItem("authToken", token);
             //previent Axios qu'on a maintenant un header sur tt nos req HTTP
-            axios.defaults.headers["Authorization"] = "Bearer " + token;
+            setAxiosToken(token);
 
             return true;
         });
@@ -23,27 +23,41 @@ async function authenticate(credentials) {
     console.log(data);*/
 }
 
+function setAxiosToken(token) {
+    axios.defaults.headers["Authorization"] = "Bearer " + token;
+}
+
 function setUp(){
     // 1. Voir si on a un token?
     const token = window.localStorage.getItem("authToken");
     // 2. Si le token est encore valide
     if(token){
-        const jwtData = jwtDecode(token);
-        if(jwtData.exp * 1000 > new Date().getTime()){
-            axios.defaults.headers["Authorization"] = "Bearer " + token;
-        }else{
-            logout();
+        const {exp: expiration} = jwtDecode(token);
+        //const jwtData = jwtDecode(token);
+        if(expiration * 1000 > new Date().getTime()){
+            setAxiosToken(token);
+            console.log("Bien connect avec axios !");
         }
-        console.log(jwtData);
-    }else{
-        logout();
     }
-    // 3. Donner le token a axios
-
 }
 
+function isAuthenticated(){
+    const token = window.localStorage.getItem("authToken");
+    if(token){
+        const {exp: expiration} = jwtDecode(token);
+
+        if(expiration * 1000 > new Date().getTime()){
+            setAxiosToken(token);
+            console.log("Vous êtes encore connecter");
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
 export default {
     authenticate,
     logout,
-    setUp
+    setUp,
+    isAuthenticated
 };

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import authApi from "../services/authApi";
 
-const LoginPage = (props) => {
+const LoginPage = ({onLogin}) => {
 
     // states
     const [credentials, setCredentials] = useState({
@@ -26,6 +26,7 @@ const LoginPage = (props) => {
         try {
             await authApi.authenticate(credentials);
             setError("");
+            onLogin(true);
         }catch (error) {
             console.log(error.response);
             setError("No account has this address or information does not match");
